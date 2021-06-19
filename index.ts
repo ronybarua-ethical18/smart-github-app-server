@@ -10,8 +10,10 @@ const app = express();
 
 app.use(cookieParser());
 
-const GITHUB_CLIENT_ID = "";
-const GITHUB_CLIENT_SECRET = "";
+require('dotenv').config()
+const port = process.env.PORT || 5000
+console.log(process.env.GITHUB_CLIENT_SECRET)
+
 const secret = "shhhhhhhhhhhh";
 const COOKIE_NAME = "github-jwt";
 
@@ -60,7 +62,7 @@ export interface GitHubUser {
 async function getGitHubUser({ code }: { code: string }): Promise<GitHubUser> {
   const githubToken = await axios
     .post(
-      `https://github.com/login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${code}`
+      `https://github.com/login/oauth/access_token?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`
     )
     .then((res) => res.data)
 
@@ -115,6 +117,6 @@ app.get("/api/me", (req: Request, res: Response) => {
   }
 });
 
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log("Server is listening");
 });
