@@ -1,5 +1,5 @@
-import {Response, Request} from 'express'
 const express = require('express')
+import {Request, Response} from 'express'
 const querystring = require('querystring')
 const jwt = require('jsonwebtoken')
 const get = require('lodash')
