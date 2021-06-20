@@ -1,10 +1,11 @@
-import express, { Request, Response } from "express";
-import querystring from "querystring";
-import jwt from "jsonwebtoken";
-import { get } from "lodash";
-import cookieParser from "cookie-parser";
-import axios from "axios";
-import cors from "cors";
+import {Response, Request} from 'express'
+const express = require('express')
+const querystring = require('querystring')
+const jwt = require('jsonwebtoken')
+const get = require('lodash')
+const cookieParser = require('cookie-parser')
+const axios = require('axios')
+const cors = require('cors')
 
 const app = express();
 
@@ -64,9 +65,9 @@ async function getGitHubUser({ code }: { code: string }): Promise<GitHubUser> {
     .post(
       `https://github.com/login/oauth/access_token?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`
     )
-    .then((res) => res.data)
+    .then((res:any) => res.data)
 
-    .catch((error) => {
+    .catch((error:string) => {
       throw error;
     });
 
@@ -78,8 +79,8 @@ async function getGitHubUser({ code }: { code: string }): Promise<GitHubUser> {
     .get("https://api.github.com/user", {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
-    .then((res) => res.data)
-    .catch((error) => {
+    .then((res:any) => res.data)
+    .catch((error:string) => {
       console.error(`Error getting user from GitHub`);
       throw error;
     });
